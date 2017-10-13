@@ -15,6 +15,7 @@ namespace CFO
         public double Rho { get; set; }
 
         public double Lambda { get; set; }
+        public double Alpha { get; set; }
 
         public double Charm { get; set; }
         public double Vomma { get; set; }

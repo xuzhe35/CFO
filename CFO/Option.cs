@@ -38,6 +38,9 @@ namespace CFO
         /// </summary>
         public double IV { get; set; }
 
+        public double AskIV { get; set; }
+        public double BidIV { get; set; }
+
         /// <summary>
         /// 期权的内在价值
         /// </summary>

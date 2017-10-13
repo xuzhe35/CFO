@@ -1,0 +1,5 @@
+C:\SyncData\projects\CFO\CFO\bin\Debug\CFO.dll
+C:\SyncData\projects\CFO\CFO\bin\Debug\CFO.pdb
+C:\SyncData\projects\CFO\CFO\obj\Debug\CFO.csprojResolveAssemblyReference.cache
+C:\SyncData\projects\CFO\CFO\obj\Debug\CFO.dll
+C:\SyncData\projects\CFO\CFO\obj\Debug\CFO.pdb

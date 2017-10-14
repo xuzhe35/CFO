@@ -3,3 +3,8 @@ C:\SyncData\projects\CFO\CFO\bin\Debug\CFO.pdb
 C:\SyncData\projects\CFO\CFO\obj\Debug\CFO.csprojResolveAssemblyReference.cache
 C:\SyncData\projects\CFO\CFO\obj\Debug\CFO.dll
 C:\SyncData\projects\CFO\CFO\obj\Debug\CFO.pdb
+C:\Users\许哲\Source\Repos\CFO\CFO\bin\Debug\CFO.dll
+C:\Users\许哲\Source\Repos\CFO\CFO\bin\Debug\CFO.pdb
+C:\Users\许哲\Source\Repos\CFO\CFO\obj\Debug\CFO.csprojResolveAssemblyReference.cache
+C:\Users\许哲\Source\Repos\CFO\CFO\obj\Debug\CFO.dll
+C:\Users\许哲\Source\Repos\CFO\CFO\obj\Debug\CFO.pdb

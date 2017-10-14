@@ -7,3 +7,12 @@ C:\SyncData\projects\CFO\CFOTests\bin\Debug\zh-Hans\Microsoft.VisualStudio.Quali
 C:\SyncData\projects\CFO\CFOTests\obj\Debug\CFOTests.csprojResolveAssemblyReference.cache
 C:\SyncData\projects\CFO\CFOTests\obj\Debug\CFOTests.dll
 C:\SyncData\projects\CFO\CFOTests\obj\Debug\CFOTests.pdb
+C:\Users\许哲\Source\Repos\CFO\CFOTests\bin\Debug\CFOTests.dll
+C:\Users\许哲\Source\Repos\CFO\CFOTests\bin\Debug\CFOTests.pdb
+C:\Users\许哲\Source\Repos\CFO\CFOTests\bin\Debug\CFO.dll
+C:\Users\许哲\Source\Repos\CFO\CFOTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\许哲\Source\Repos\CFO\CFOTests\bin\Debug\CFO.pdb
+C:\Users\许哲\Source\Repos\CFO\CFOTests\bin\Debug\zh-Hans\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+C:\Users\许哲\Source\Repos\CFO\CFOTests\obj\Debug\CFOTests.csprojResolveAssemblyReference.cache
+C:\Users\许哲\Source\Repos\CFO\CFOTests\obj\Debug\CFOTests.dll
+C:\Users\许哲\Source\Repos\CFO\CFOTests\obj\Debug\CFOTests.pdb

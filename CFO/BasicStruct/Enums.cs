@@ -35,7 +35,7 @@ namespace CFO
     public enum ProfitType
     {
         UnLimitedProfit,
-        LimitedPrpfit
+        LimitedProfit
     }
 
     public enum LoseType

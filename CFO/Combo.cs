@@ -85,7 +85,10 @@ namespace CFO
                         else if(asset.GetType()==typeof(STK))
                         {
                             //如果是Collar的话，现货为0时候现货头寸的收益就是价格乘以数量
-                            final_profit = asset.CurrentPrice.Bid * pos.Quantity;
+                            if (pos.Quantity < 0)
+                                final_profit += pos.AvgCost * Math.Abs(pos.Quantity);
+                            else
+                                final_profit += pos.AvgCost * -1 * pos.Quantity;
                         }
                     });
 
@@ -94,7 +97,55 @@ namespace CFO
                     return true;
                 }
 
-                return true;
+                return false;
+            }
+            else
+                return false;
+        }
+
+        public bool CalculateMaxLose()
+        {
+            TypeJudge();
+
+            if (LoseType == LoseType.LimitedLose)
+            {
+                double final_lose = 0;
+                if (Strategy == ComboStrategy.BearSpread || Strategy == ComboStrategy.Collar)
+                {
+                    MemberPos.ForEach((pos) =>
+                    {
+                        var asset = pos.Asset;
+
+                        //如果是期权头寸，则最大利润是underlying价格为0的时候
+                        if (asset.GetType() == typeof(Option))
+                        {
+                            var option = (Option)asset;
+                            double option_value = option.GetIntrinsicValue(new Price { Ask = 10000, Bid = 10000, Last = 10000 });
+
+                            if (pos.Quantity > 0)
+                            {
+                                final_lose += (option_value - pos.AvgCost) * pos.Quantity;
+                            }
+                            else
+                            {
+                                final_lose += (pos.AvgCost - option_value) * Math.Abs(pos.Quantity);
+                            }
+                        }
+                        else if (asset.GetType() == typeof(STK))
+                        {
+                            //如果是Collar的话，现货为0时候现货头寸的收益就是价格乘以数量
+                            if (pos.Quantity > 0)
+                                final_lose += (10000 - pos.AvgCost) * pos.Quantity;
+                            else
+                                final_lose+= (10000 - pos.AvgCost) * pos.Quantity;
+                        }
+                    });
+
+                    MaxLose = final_lose;
+                    return true;
+                }
+
+                return false;
             }
             else
                 return false;

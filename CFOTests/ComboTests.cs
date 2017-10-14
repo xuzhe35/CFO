@@ -98,9 +98,61 @@ namespace CFO.Tests
 
             bear_spread.Strategy = ComboStrategy.BearSpread;
 
-            if(bear_spread.CalculateMaxProfit())
+            if (bear_spread.CalculateMaxProfit())
             {
                 Assert.IsTrue(bear_spread.MaxProfit == 1320);
+            }
+            else
+            {
+                Assert.Fail();
+            }
+        }
+
+        [TestMethod()]
+        public void CalculateMaxLoseTest()
+        {
+            Option opt1 = new Option(OptionRight.CALL, 38, "20171010");
+            Option opt2 = new Option(OptionRight.CALL, 41, "20171010");
+
+            Price opt1_price = new Price()
+            {
+                Ask = 1.85,
+                Bid = 1.84
+            };
+
+            opt1.CurrentPrice = opt1_price;
+
+            Price opt2_price = new Price()
+            {
+                Ask = 1.35,
+                Bid = 1.34
+            };
+
+            opt2.CurrentPrice = opt2_price;
+
+            Position pos1 = new Position()
+            {
+                Asset = opt1,
+                AvgCost = 3.598,
+                Quantity = -1500
+            };
+
+            Position pos2 = new Position()
+            {
+                Asset = opt2,
+                AvgCost = 2.718,
+                Quantity = 1500
+            };
+
+            Combo bear_spread = new Combo();
+            bear_spread.MemberPos.Add(pos1);
+            bear_spread.MemberPos.Add(pos2);
+
+            bear_spread.Strategy = ComboStrategy.BearSpread;
+
+            if (bear_spread.CalculateMaxLose())
+            {
+                Assert.IsTrue(bear_spread.MaxLose < -1320);
             }
             else
             {

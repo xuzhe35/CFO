@@ -50,6 +50,12 @@
     <Compile Include="BasicStruct\Price.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="STK.cs" />
+    <Compile Include="Strategy\BearCollar.cs" />
+    <Compile Include="Strategy\BearSpread.cs" />
+    <Compile Include="Strategy\BullCollar.cs" />
+    <Compile Include="Strategy\BullSpread.cs" />
+    <Compile Include="Strategy\CBS.cs" />
+    <Compile Include="Strategy\VaildateException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

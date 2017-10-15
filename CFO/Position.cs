@@ -56,5 +56,27 @@ namespace CFO
             else
                 return false;
         }
+
+        /// <summary>
+        /// 计算某一个到期价格整个头寸的收益情况
+        /// </summary>
+        /// <param name="UnderlyingPrice">要计算的标的物到期价格</param>
+        /// <returns></returns>
+        public double CalculateFinalProfit(double UnderlyingPrice)
+        {
+            Price FinalPrice = new Price { Ask = UnderlyingPrice, Bid = UnderlyingPrice, Last = UnderlyingPrice };
+
+            if (Asset.GetType()==typeof(Option))
+            {
+                var OptValue = ((Option)Asset).GetIntrinsicValue(FinalPrice);
+                return (OptValue - AvgCost) * Quantity;
+            }
+            else if(Asset.GetType()==typeof(STK))
+            {
+                return (UnderlyingPrice - AvgCost) * Quantity;
+            }
+
+            return 0;
+        }
     }
 }

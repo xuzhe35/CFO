@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CFO.Strategy;
 
 namespace CFO.Tests
 {
@@ -48,8 +49,8 @@ namespace CFO.Tests
             };
 
             Combo bear_spread = new Combo();
-            bear_spread.MemberPos.Add(pos1);
-            bear_spread.MemberPos.Add(pos2);
+            bear_spread.Legs.Add(pos1);
+            bear_spread.Legs.Add(pos2);
 
             var pl = bear_spread.CalculateFPL();
 
@@ -92,14 +93,11 @@ namespace CFO.Tests
                 Quantity = 1500
             };
 
-            Combo bear_spread = new Combo();
-            bear_spread.MemberPos.Add(pos1);
-            bear_spread.MemberPos.Add(pos2);
+            BearSpread bear_spread = new BearSpread(pos1, pos2);
 
-            bear_spread.Strategy = ComboStrategy.BearSpread;
-
-            if (bear_spread.CalculateMaxProfit())
+            if (bear_spread.IsVaildated)
             {
+                var max_lose = bear_spread.CalculateMaxProfit();
                 Assert.IsTrue(bear_spread.MaxProfit == 1320);
             }
             else
@@ -144,14 +142,11 @@ namespace CFO.Tests
                 Quantity = 1500
             };
 
-            Combo bear_spread = new Combo();
-            bear_spread.MemberPos.Add(pos1);
-            bear_spread.MemberPos.Add(pos2);
+            BearSpread bear_spread = new BearSpread(pos1, pos2);
 
-            bear_spread.Strategy = ComboStrategy.BearSpread;
-
-            if (bear_spread.CalculateMaxLose())
+            if (bear_spread.IsVaildated)
             {
+                var max_lose = bear_spread.CalculateMaxLose();
                 Assert.IsTrue(bear_spread.MaxLose < -1320);
             }
             else

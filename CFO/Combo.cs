@@ -22,6 +22,18 @@ namespace CFO
         public double MaxProfit { get; set; }
         public double MaxLose { get; set; }
 
+        public double RiskRatio { get; set; }
+
+        /// <summary>
+        /// 导致需要roll的触发指标，以Underlying的价格变化为准
+        /// </summary>
+        public double RollTrigger_Underlying { get; set; }
+
+        /// <summary>
+        /// 导致需要roll的触发指标，以组合的Gamma变化为准
+        /// </summary>
+        public double RollTrigger_Gamma { get; set; }
+
         /// <summary>
         /// 验证一个combo里的所有成员是否都是一个标的物
         /// </summary>
@@ -121,6 +133,18 @@ namespace CFO
         {
             //能一句话解决的坚决不换行
             return Legs.Sum((leg) => (leg.Asset.CurrentPrice.Ask - leg.Asset.CurrentPrice.Bid) * Math.Abs(leg.Quantity));
+        }
+
+        /// <summary>
+        /// 计算组合的风险收益比=极限损失/极限盈利
+        /// </summary>
+        /// <returns></returns>
+        public double CalculateRiskRatio()
+        {
+            if (ProfitType == ProfitType.UnLimitedProfit || LoseType == LoseType.UnlimitedLose)
+                throw new Exception("唯独同时具有极限损失和盈利的组合才能计算风险比");
+
+            return (Math.Abs(MaxLose) / MaxProfit);
         }
     }
 }

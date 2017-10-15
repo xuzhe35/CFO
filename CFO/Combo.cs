@@ -54,11 +54,15 @@ namespace CFO
 
         public virtual double CalculateMaxProfit()
         {
+            if (ProfitType == ProfitType.UnLimitedProfit)
+                throw new Exception("无限盈利的组合无法计算极限收益");
             return 0;
         }
 
         public virtual double CalculateMaxLose()
         {
+            if (LoseType == LoseType.UnlimitedLose)
+                throw new Exception("无限损失的组合无法计算极限损失");
             return 0;
         }
 

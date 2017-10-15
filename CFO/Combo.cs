@@ -143,8 +143,14 @@ namespace CFO
         {
             if (ProfitType == ProfitType.UnLimitedProfit || LoseType == LoseType.UnlimitedLose)
                 throw new Exception("唯独同时具有极限损失和盈利的组合才能计算风险比");
+            else
+            {
+                CalculateMaxLose();
+                CalculateMaxProfit();
+            }
 
-            return (Math.Abs(MaxLose) / MaxProfit);
+            RiskRatio = (Math.Abs(MaxLose) / MaxProfit);
+            return RiskRatio;
         }
     }
 }

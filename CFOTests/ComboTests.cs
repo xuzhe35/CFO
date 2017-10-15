@@ -154,5 +154,43 @@ namespace CFO.Tests
                 Assert.Fail();
             }
         }
+
+        [TestMethod()]
+        public void CalculateRiskRatioTest()
+        {
+            Option opt1 = new Option(OptionRight.CALL, 38, "20171010");
+            Option opt2 = new Option(OptionRight.CALL, 41, "20171010");
+
+            opt1.CurrentPrice = new Price() { Ask = 1.85, Bid = 1.84 };
+            opt2.CurrentPrice = new Price() { Ask = 1.35, Bid = 1.34 };
+
+            Position pos1 = new Position()
+            {
+                Asset = opt1,
+                AvgCost = 3.598,
+                Quantity = -1500
+            };
+
+            Position pos2 = new Position()
+            {
+                Asset = opt2,
+                AvgCost = 2.718,
+                Quantity = 1500
+            };
+
+            BearSpread bear_spread = new BearSpread(pos1, pos2);
+
+            if (bear_spread.IsVaildated)
+            {
+                var ration = bear_spread.CalculateRiskRatio();
+
+                Console.WriteLine(ration.ToString());
+                Assert.IsTrue(ration > 2);
+            }
+            else
+            {
+                Assert.Fail("Vaildate fail");
+            }
+        }
     }
 }

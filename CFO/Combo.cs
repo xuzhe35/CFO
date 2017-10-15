@@ -8,7 +8,8 @@ namespace CFO
 {
     public class Combo
     {
-        public List<Position> MemberPos = new List<Position>();
+        public bool IsVaildated { get; set; }
+        public List<Position> Legs = new List<Position>();
 
         public string Symbol { get; set; }
         public ComboStrategy Strategy { get; set; }
@@ -25,136 +26,50 @@ namespace CFO
         /// 验证一个combo里的所有成员是否都是一个标的物
         /// </summary>
         /// <returns></returns>
-        public bool Vaildate()
+        public bool VaildateSameSymbol()
         {
-            if (MemberPos.Count > 0)
+            if (Legs.Count > 0)
             {
-                var symbol = MemberPos[0].Asset.Symbol;
+                var symbol = Legs[0].Asset.Symbol;
                 //如果成员里但凡有一个不是相同的symbol，则返回验证失败
-                if (MemberPos.Exists((mp) => mp.Asset.Symbol != symbol))
+                if (Legs.Exists((mp) => mp.Asset.Symbol != symbol))
+                {
+                    IsVaildated = false;
                     return false;
+                }
                 else
                     return true;
             }
             else
+            {
+                IsVaildated = false;
                 return false;
+            }
         }
 
-        private void TypeJudge()
+        public virtual void TypeJudge()
         {
-            if(Strategy == ComboStrategy.BearSpread || Strategy == ComboStrategy.Collar)
-            {
-                ProfitType = ProfitType.LimitedProfit;
-                LoseType = LoseType.LimitedLose;
-            }
-            else if(Strategy == ComboStrategy.CBS)
-            {
-                ProfitType = ProfitType.UnLimitedProfit;
-                LoseType = LoseType.LimitedLose;
-            }
+
         }
 
-        public bool CalculateMaxProfit()
+        public virtual double CalculateMaxProfit()
         {
-            TypeJudge();
-
-            if (ProfitType == ProfitType.LimitedProfit)
-            {
-                double final_profit = 0;
-                if (Strategy == ComboStrategy.BearSpread || Strategy == ComboStrategy.Collar)
-                {
-                    MemberPos.ForEach((pos) =>
-                    {
-                        var asset = pos.Asset;
-
-                        //如果是期权头寸，则最大利润是underlying价格为0的时候
-                        if(asset.GetType()==typeof(Option))
-                        {
-                            var option = (Option)asset;
-                            double option_value = option.GetIntrinsicValue(new Price { Ask = 0, Bid = 0, Last = 0 });
-
-                            if(pos.Quantity>0)
-                            {
-                                final_profit += (option_value - pos.AvgCost) * pos.Quantity;
-                            }
-                            else
-                            {
-                                final_profit += (pos.AvgCost - option_value) * Math.Abs(pos.Quantity);
-                            }
-                        }
-                        else if(asset.GetType()==typeof(STK))
-                        {
-                            //如果是Collar的话，现货为0时候现货头寸的收益就是价格乘以数量
-                            if (pos.Quantity < 0)
-                                final_profit += pos.AvgCost * Math.Abs(pos.Quantity);
-                            else
-                                final_profit += pos.AvgCost * -1 * pos.Quantity;
-                        }
-                    });
-
-                    MaxProfit = final_profit;
-
-                    return true;
-                }
-
-                return false;
-            }
-            else
-                return false;
+            return 0;
         }
 
-        public bool CalculateMaxLose()
+        public virtual double CalculateMaxLose()
         {
-            TypeJudge();
-
-            if (LoseType == LoseType.LimitedLose)
-            {
-                double final_lose = 0;
-                if (Strategy == ComboStrategy.BearSpread || Strategy == ComboStrategy.Collar)
-                {
-                    MemberPos.ForEach((pos) =>
-                    {
-                        var asset = pos.Asset;
-
-                        //如果是期权头寸，则最大利润是underlying价格为0的时候
-                        if (asset.GetType() == typeof(Option))
-                        {
-                            var option = (Option)asset;
-                            double option_value = option.GetIntrinsicValue(new Price { Ask = 10000, Bid = 10000, Last = 10000 });
-
-                            if (pos.Quantity > 0)
-                            {
-                                final_lose += (option_value - pos.AvgCost) * pos.Quantity;
-                            }
-                            else
-                            {
-                                final_lose += (pos.AvgCost - option_value) * Math.Abs(pos.Quantity);
-                            }
-                        }
-                        else if (asset.GetType() == typeof(STK))
-                        {
-                            //如果是Collar的话，现货为0时候现货头寸的收益就是价格乘以数量
-                            if (pos.Quantity > 0)
-                                final_lose += (10000 - pos.AvgCost) * pos.Quantity;
-                            else
-                                final_lose+= (10000 - pos.AvgCost) * pos.Quantity;
-                        }
-                    });
-
-                    MaxLose = final_lose;
-                    return true;
-                }
-
-                return false;
-            }
-            else
-                return false;
+            return 0;
         }
 
+        /// <summary>
+        /// 计算整个组合的浮动盈亏
+        /// </summary>
+        /// <returns></returns>
         public double CalculateFPL()
         {
-            MemberPos.ForEach((p) => p.CalculateFPL());
-            FloatingPL = MemberPos.Sum((p) => p.FloatingPL);
+            Legs.ForEach((p) => p.CalculateFPL());
+            FloatingPL = Legs.Sum((p) => p.FloatingPL);
 
             return FloatingPL;
         }
@@ -164,12 +79,15 @@ namespace CFO
         /// </summary>
         public void CalculateGreeks()
         {
+            if (!VaildateSameSymbol())
+                throw new Exception("非同一个标的物的希腊值不能叠加");
+             
             double SumDelta = 0;
             double SumGamma = 0;
             double SumVega = 0;
             double SumTheta = 0;
 
-            foreach(Position pos in MemberPos)
+            foreach(Position pos in Legs)
             {
                 if (pos.Asset.GetType() == typeof(STK))
                 {
@@ -189,6 +107,16 @@ namespace CFO
             ComboGreeks.Gamma = SumGamma;
             ComboGreeks.Vega = SumVega;
             ComboGreeks.Theta = SumTheta;
+        }
+
+        /// <summary>
+        /// 计算整个组合的点差和
+        /// </summary>
+        /// <returns></returns>
+        public double SumSpread()
+        {
+            //能一句话解决的坚决不换行
+            return Legs.Sum((leg) => (leg.Asset.CurrentPrice.Ask - leg.Asset.CurrentPrice.Bid) * Math.Abs(leg.Quantity));
         }
     }
 }

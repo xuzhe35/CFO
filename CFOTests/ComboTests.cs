@@ -48,8 +48,8 @@ namespace CFO.Tests
             };
 
             Combo bear_spread = new Combo();
-            bear_spread.MemberPos.Add(pos1);
-            bear_spread.MemberPos.Add(pos2);
+            bear_spread.Legs.Add(pos1);
+            bear_spread.Legs.Add(pos2);
 
             var pl = bear_spread.CalculateFPL();
 
@@ -93,8 +93,8 @@ namespace CFO.Tests
             };
 
             Combo bear_spread = new Combo();
-            bear_spread.MemberPos.Add(pos1);
-            bear_spread.MemberPos.Add(pos2);
+            bear_spread.Legs.Add(pos1);
+            bear_spread.Legs.Add(pos2);
 
             bear_spread.Strategy = ComboStrategy.BearSpread;
 
@@ -145,8 +145,8 @@ namespace CFO.Tests
             };
 
             Combo bear_spread = new Combo();
-            bear_spread.MemberPos.Add(pos1);
-            bear_spread.MemberPos.Add(pos2);
+            bear_spread.Legs.Add(pos1);
+            bear_spread.Legs.Add(pos2);
 
             bear_spread.Strategy = ComboStrategy.BearSpread;
 

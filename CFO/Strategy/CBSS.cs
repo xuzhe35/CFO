@@ -32,13 +32,13 @@ namespace CFO.Strategy
             this.LoseType = LoseType.LimitedLose;
             this.ProfitType = ProfitType.UnLimitedProfit;
 
-            if (VaildateSameSymbol() && VaildateCBS())
+            if (VaildateSameSymbol() && VaildateCBSS())
                 IsVaildated = true;
             else
                 IsVaildated = false;
         }
 
-        private bool VaildateCBS()
+        private bool VaildateCBSS()
         {
             IsVaildated = false;
 

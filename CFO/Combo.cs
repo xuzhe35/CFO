@@ -34,6 +34,8 @@ namespace CFO
         /// </summary>
         public double RollTrigger_Gamma { get; set; }
 
+        public TriggerType TriggerType { get; set; }
+
         /// <summary>
         /// 验证一个combo里的所有成员是否都是一个标的物
         /// </summary>
@@ -151,6 +153,39 @@ namespace CFO
 
             RiskRatio = (Math.Abs(MaxLose) / MaxProfit);
             return RiskRatio;
+        }
+
+        /// <summary>
+        /// 判断是否出发了Roll的条件
+        /// </summary>
+        /// <param name="Underlying">当前现货的价格</param>
+        /// <returns></returns>
+        public bool IsTriggered(double Underlying)
+        {
+            bool UnderlyingUpSideSide = Underlying > RollTrigger_Underlying;
+            bool UnderlyingDownSide = Underlying < RollTrigger_Underlying;
+
+            bool GammaUpSide = ComboGreeks.Gamma > RollTrigger_Gamma;
+            bool GammaDownSide = ComboGreeks.Gamma < RollTrigger_Gamma;
+
+            if (TriggerType == TriggerType.UnderlyingUpside && UnderlyingUpSideSide)
+                return true;
+            else if (TriggerType == TriggerType.UnderlyingDownsid && UnderlyingDownSide)
+                return true;
+            else if (TriggerType == TriggerType.GammaUpside && GammaUpSide)
+                return true;
+            else if (TriggerType == TriggerType.GammaDownSide && GammaDownSide)
+                return true;
+            else if (TriggerType == TriggerType.BothUpside && (UnderlyingUpSideSide && GammaUpSide))
+                return true;
+            else if (TriggerType == TriggerType.BothDownSide && (UnderlyingDownSide && GammaDownSide))
+                return true;
+            else if (TriggerType == TriggerType.UUGD && (UnderlyingUpSideSide && GammaDownSide))
+                return true;
+            else if (TriggerType == TriggerType.UDGU && (UnderlyingDownSide && GammaUpSide))
+                return true;
+
+            return false;
         }
     }
 }

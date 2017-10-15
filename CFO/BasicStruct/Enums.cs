@@ -43,4 +43,16 @@ namespace CFO
         UnlimitedLose,
         LimitedLose
     }
+
+    public enum TriggerType
+    {
+        UnderlyingUpside,
+        UnderlyingDownsid,
+        GammaUpside,
+        GammaDownSide,
+        BothUpside,
+        BothDownSide,
+        UUGD,           //Underlying Upside Gamma DownSide
+        UDGU            //Underlying Downside Gamma Upside
+    }
 }

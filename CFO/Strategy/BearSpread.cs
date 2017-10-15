@@ -81,7 +81,7 @@ namespace CFO.Strategy
                 throw new VaildateException("BearSpread 必须是两腿的");
 
             //必须是两张期权
-            if (Legs[0].GetType() != typeof(Option) || Legs[1].GetType() != typeof(Option))
+            if (Legs[0].Asset.GetType() != typeof(Option) || Legs[1].Asset.GetType() != typeof(Option))
             {
                 throw new VaildateException("BearSpread 两腿必须都是期权");
             }
@@ -113,11 +113,11 @@ namespace CFO.Strategy
             }
 
             //一定是低执行价的期权卖，高执行价的期权买；否则就不是BearSpread
-            if (PosHigherK.Quantity > 0 && PosLowerK.Quantity < 0)
+            if (!(PosHigherK.Quantity > 0 && PosLowerK.Quantity < 0))
                 throw new VaildateException("BearSpread 必须是低执行价的卖出高执行价买入");
 
             //张数必须相等
-            if (Math.Asin(PosHigherK.Quantity) != Math.Abs(PosLowerK.Quantity))
+            if (Math.Abs(PosHigherK.Quantity) != Math.Abs(PosLowerK.Quantity))
                 throw new VaildateException("BearSpread 两腿的张数必须配平");
 
             OptLowerK = (Option)PosLowerK.Asset;

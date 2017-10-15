@@ -14,7 +14,7 @@ namespace CFO.Tests
         [TestMethod()]
         public void GenExpiryDateTest()
         {
-            Option testOption = new Option(OptionRight.CALL, 254, "20171117");
+            Option testOption = new Option("SPY", OptionRight.CALL, 254, "20171117");
 
             if (testOption.GenExpiryDate())
             {
@@ -31,8 +31,8 @@ namespace CFO.Tests
         [TestMethod()]
         public void GetIntrinsicValueTest()
         {
-            Option testOption = new Option(OptionRight.CALL, 254, "20171117");
-            Option testPutOpt = new Option(OptionRight.PUT, 253, "20171117");
+            Option testOption = new Option("SPY", OptionRight.CALL, 254, "20171117");
+            Option testPutOpt = new Option("SPY", OptionRight.PUT, 253, "20171117");
 
             Price testFinalPrice = new Price() { Ask = 256.01, Bid = 256, Last = 256 };
 

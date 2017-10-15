@@ -8,6 +8,11 @@ namespace CFO
 {
     public class STK : CFO
     {
+        public STK(string strSymbol)
+        {
+            Symbol = strSymbol;
+        }
+
         /// <summary>
         /// 做空需要付出的股息率
         /// </summary>

@@ -51,8 +51,9 @@ namespace CFO
         /// </summary>
         public OptionType Type { get; set; }
 
-        public Option(OptionRight orRight,double dbStrikePrice,string ExpiryDateString)
+        public Option(string strSymbol,OptionRight orRight,double dbStrikePrice,string ExpiryDateString)
         {
+            Symbol = strSymbol;
             strExpiryDate = ExpiryDateString;
             GenExpiryDate();
 
@@ -106,6 +107,11 @@ namespace CFO
             GenExpiryDate();
         }
 
+        /// <summary>
+        /// 判断是平值虚值还是实值
+        /// </summary>
+        /// <param name="UnderlyingPrice"></param>
+        /// <returns></returns>
         public OptionType GetType(Price UnderlyingPrice)
         {
             OptionType result;

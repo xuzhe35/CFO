@@ -15,8 +15,8 @@ namespace CFO.Tests
         [TestMethod()]
         public void CalculateFPLTest()
         {
-            Option opt1 = new Option(OptionRight.CALL, 38, "20171010");
-            Option opt2 = new Option(OptionRight.CALL, 41, "20171010");
+            Option opt1 = new Option("VXX", OptionRight.CALL, 38, "20171010");
+            Option opt2 = new Option("VXX", OptionRight.CALL, 41, "20171010");
 
             Price opt1_price = new Price()
             {
@@ -60,8 +60,8 @@ namespace CFO.Tests
         [TestMethod()]
         public void CalculateMaxProfitTest()
         {
-            Option opt1 = new Option(OptionRight.CALL, 38, "20171010");
-            Option opt2 = new Option(OptionRight.CALL, 41, "20171010");
+            Option opt1 = new Option("VXX", OptionRight.CALL, 38, "20171010");
+            Option opt2 = new Option("VXX", OptionRight.CALL, 41, "20171010");
 
             Price opt1_price = new Price()
             {
@@ -109,8 +109,8 @@ namespace CFO.Tests
         [TestMethod()]
         public void CalculateMaxLoseTest()
         {
-            Option opt1 = new Option(OptionRight.CALL, 38, "20171010");
-            Option opt2 = new Option(OptionRight.CALL, 41, "20171010");
+            Option opt1 = new Option("VXX", OptionRight.CALL, 38, "20171010");
+            Option opt2 = new Option("VXX", OptionRight.CALL, 41, "20171010");
 
             Price opt1_price = new Price()
             {
@@ -158,8 +158,8 @@ namespace CFO.Tests
         [TestMethod()]
         public void CalculateRiskRatioTest()
         {
-            Option opt1 = new Option(OptionRight.CALL, 38, "20171010");
-            Option opt2 = new Option(OptionRight.CALL, 41, "20171010");
+            Option opt1 = new Option("VXX", OptionRight.CALL, 38, "20171010");
+            Option opt2 = new Option("VXX", OptionRight.CALL, 41, "20171010");
 
             opt1.CurrentPrice = new Price() { Ask = 1.85, Bid = 1.84 };
             opt2.CurrentPrice = new Price() { Ask = 1.35, Bid = 1.34 };

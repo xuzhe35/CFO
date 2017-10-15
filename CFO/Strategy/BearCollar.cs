@@ -124,7 +124,7 @@ namespace CFO.Strategy
 
         public override double CalculateMaxLose()
         {
-            MaxLose = Legs.Sum((leg) => leg.CalculateFinalProfit(10000));
+            MaxLose = Legs.Sum((leg) => leg.CalculateFinalProfit(OptHigherK.StrikePrice));
 
             if (MaxLose > 0)
                 throw new Exception("Bear Spread 的最大损失不应大于0");

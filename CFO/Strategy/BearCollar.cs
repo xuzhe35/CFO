@@ -15,13 +15,6 @@ namespace CFO.Strategy
         public Option OptLowerK { get; set; }
         public Option OptHigherK { get; set; }
 
-
-        public override void TypeJudge()
-        {
-            this.LoseType = LoseType.LimitedLose;
-            this.ProfitType = ProfitType.LimitedProfit;
-        }
-
         public BearCollar(Position LegSpot,Position LegHigherK,Position LegLowerK)
         {
             PosSpot = LegSpot;
@@ -31,6 +24,9 @@ namespace CFO.Strategy
             Legs.Add(LegSpot);
             Legs.Add(LegHigherK);
             Legs.Add(LegLowerK);
+
+            this.LoseType = LoseType.LimitedLose;
+            this.ProfitType = ProfitType.LimitedProfit;
 
             if (VaildateSameSymbol() && VaildateBearCollar())
                 IsVaildated = true;

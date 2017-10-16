@@ -184,7 +184,7 @@ namespace CFO.Tests
             {
                 var ration = bear_spread.CalculateRiskRatio();
 
-                Console.WriteLine(ration.ToString());
+                //Console.WriteLine(ration.ToString());
                 Assert.IsTrue(ration > 2);
             }
             else

@@ -127,5 +127,17 @@ namespace CFO.Strategy
 
             return MaxLose;
         }
+
+        /// <summary>
+        /// 计算目前浮盈占极限收益的百分比
+        /// </summary>
+        /// <returns></returns>
+        public double CalculateProfitPrecent()
+        {
+            MaxProfit = CalculateMaxProfit();
+            CalculateFPL();
+
+            return (FloatingPL / MaxProfit) * 100;
+        }
     }
 }

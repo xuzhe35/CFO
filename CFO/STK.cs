@@ -11,6 +11,7 @@ namespace CFO
         public STK(string strSymbol)
         {
             Symbol = strSymbol;
+            ID = "STK." + strSymbol;
         }
 
         /// <summary>

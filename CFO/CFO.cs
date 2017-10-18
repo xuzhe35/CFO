@@ -25,5 +25,10 @@ namespace CFO
         /// 当前市场价格
         /// </summary>
         public Price CurrentPrice { get; set; }
+
+        public CFO()
+        {
+            CurrentPrice = new Price();
+        }
     }
 }

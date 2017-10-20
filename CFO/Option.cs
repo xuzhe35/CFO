@@ -59,11 +59,29 @@ namespace CFO
 
             Right = orRight;
             StrikePrice = dbStrikePrice;
+
+            string RightString = "C";
+            if (orRight == OptionRight.PUT)
+                RightString = "P";
+
+            ID = string.Format("{0}.{1}.{2}.{3}", Symbol, RightString, StrikePrice, ExpiryDateString);
         }
 
         public Option(string FomartString)
         {
+            string[] splited = FomartString.Split('.');
 
+            Symbol = splited[1];
+
+            if (splited[2] == "C")
+                Right = OptionRight.CALL;
+            else if (splited[2] == "P")
+                Right = OptionRight.PUT;
+
+            StrikePrice = double.Parse(splited[3]);
+            strExpiryDate = splited[4];
+
+            GenExpiryDate();
         }
 
         /// <summary>

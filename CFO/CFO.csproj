@@ -55,6 +55,7 @@
     <Compile Include="Strategy\BullCollar.cs" />
     <Compile Include="Strategy\BullSpread.cs" />
     <Compile Include="Strategy\CBSS.cs" />
+    <Compile Include="Strategy\RiskReversal.cs" />
     <Compile Include="Strategy\VaildateException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

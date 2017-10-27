@@ -39,5 +39,13 @@ namespace CFO.Tests
             Assert.AreEqual(0, testPutOpt.GetIntrinsicValue(testFinalPrice));
             Assert.AreEqual(2, testOption.GetIntrinsicValue(testFinalPrice));
         }
+
+        [TestMethod()]
+        public void OptionTest()
+        {
+            Option test = new Option("OPT.VXX.C.20171117.35.5");
+
+            Assert.AreEqual(test.StrikePrice, 35.5);
+        }
     }
 }

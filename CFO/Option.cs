@@ -67,9 +67,9 @@ namespace CFO
             ID = string.Format("{0}.{1}.{2}.{3}", Symbol, RightString, StrikePrice, ExpiryDateString);
         }
 
-        public Option(string FomartString)
+        public Option(string FormattString)
         {
-            string[] splited = FomartString.Split('.');
+            string[] splited = FormattString.Split('.');
 
             Symbol = splited[1];
 
@@ -77,11 +77,19 @@ namespace CFO
                 Right = OptionRight.CALL;
             else if (splited[2] == "P")
                 Right = OptionRight.PUT;
-
-            StrikePrice = double.Parse(splited[3]);
-            strExpiryDate = splited[4];
+            strExpiryDate = splited[3];
 
             GenExpiryDate();
+
+            if(splited.Length<=5)
+            {
+                StrikePrice = double.Parse(splited[4]);
+            }
+            else
+            {
+                int index = FormattString.IndexOf(strExpiryDate);
+                StrikePrice = double.Parse(FormattString.Substring(index + 9));
+            }
         }
 
         /// <summary>

@@ -34,6 +34,21 @@ namespace CFO.Strategy
                 IsVaildated = false;
         }
 
+        /// <summary>
+        /// 是否牵扯到本组合
+        /// </summary>
+        /// <param name="ID">资产的描述ID</param>
+        /// <returns></returns>
+        public bool IsInvolved(string ID)
+        {
+            if (OptLowerK.ID == ID || OptHigherK.ID == ID || PosSpot.ID==ID)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         private bool VaildateBearCollar()
         {
             IsVaildated = false;

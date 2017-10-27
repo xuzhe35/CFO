@@ -20,6 +20,16 @@ namespace CFO.Strategy
             ProfitType = ProfitType.UnLimitedProfit;
         }
 
+        public bool IsInvolved(string ID)
+        {
+            if (OptLowerK.ID == ID || OptHigherK.ID == ID)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         /// <summary>
         /// Risk reversal 组合的验证，必须是两腿的，不同执行价的，同权同到期日的，张数必须是相同的
         /// </summary>

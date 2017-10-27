@@ -69,6 +69,21 @@ namespace CFO.Strategy
         }
 
         /// <summary>
+        /// 是否牵扯到本组合
+        /// </summary>
+        /// <param name="ID">资产的描述ID</param>
+        /// <returns></returns>
+        public bool IsInvolved(string ID)
+        {
+            if(OptLowerK.ID==ID || OptHigherK.ID==ID)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// BearSpread 组合的验证，必须是两腿的，不同执行价的，同权同到期日的，张数必须是相同的
         /// </summary>
         /// <returns></returns>

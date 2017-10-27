@@ -8,10 +8,18 @@ namespace CFO
 {
     public class STK : CFO
     {
-        public STK(string strSymbol)
+        public STK(string strFormatString)
         {
-            Symbol = strSymbol;
-            ID = "STK." + strSymbol;
+            if (strFormatString.StartsWith("STK"))
+            {
+                Symbol = strFormatString.Substring(4, strFormatString.Length - 4);
+                ID = strFormatString;
+            }
+            else
+            {
+                Symbol = strFormatString;
+                ID = "STK." + strFormatString;
+            }
         }
 
         /// <summary>

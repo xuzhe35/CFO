@@ -34,6 +34,10 @@ namespace CFO.Strategy
                 IsVaildated = false;
         }
 
+        public BearCollar()
+        {
+        }
+
         /// <summary>
         /// 是否牵扯到本组合
         /// </summary>

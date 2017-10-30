@@ -38,6 +38,10 @@ namespace CFO.Strategy
                 IsVaildated = false;
         }
 
+        public CBSS()
+        {
+        }
+
         public bool IsInvolved(string ID)
         {
             if (OptLowerK.ID == ID || OptHigherK.ID == ID || PosSpot.ID == ID)

@@ -8,7 +8,7 @@ namespace CFO
 {
     public class HedgedCombo
     {
-        Dictionary<string, Combo> dicCombo = new Dictionary<string, Combo>();
+       public Dictionary<string, Combo> dicCombo = new Dictionary<string, Combo>();
 
         public double GetFPL()
         {

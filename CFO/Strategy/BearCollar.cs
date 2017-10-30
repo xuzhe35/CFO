@@ -36,6 +36,12 @@ namespace CFO.Strategy
 
         public BearCollar()
         {
+            Strategy = ComboStrategy.BearCollar;
+
+            if (VaildateSameSymbol() && VaildateBearCollar())
+                IsVaildated = true;
+            else
+                IsVaildated = false;
         }
 
         /// <summary>
@@ -53,7 +59,7 @@ namespace CFO.Strategy
             return false;
         }
 
-        private bool VaildateBearCollar()
+        public bool VaildateBearCollar()
         {
             IsVaildated = false;
 

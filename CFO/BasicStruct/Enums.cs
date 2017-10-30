@@ -28,7 +28,9 @@ namespace CFO
     public enum ComboStrategy
     {
         BearSpread,
+        BearCollar,
         Collar,
+        CBSS,
         CBS
     }
 

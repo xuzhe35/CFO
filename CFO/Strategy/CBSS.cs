@@ -40,6 +40,12 @@ namespace CFO.Strategy
 
         public CBSS()
         {
+            Strategy = ComboStrategy.CBSS;
+
+            if (VaildateSameSymbol() && VaildateCBSS())
+                IsVaildated = true;
+            else
+                IsVaildated = false;
         }
 
         public bool IsInvolved(string ID)
@@ -52,7 +58,7 @@ namespace CFO.Strategy
             return false;
         }
 
-        private bool VaildateCBSS()
+        public bool VaildateCBSS()
         {
             IsVaildated = false;
 

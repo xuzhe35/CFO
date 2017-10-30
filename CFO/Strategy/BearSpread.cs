@@ -87,7 +87,7 @@ namespace CFO.Strategy
         /// BearSpread 组合的验证，必须是两腿的，不同执行价的，同权同到期日的，张数必须是相同的
         /// </summary>
         /// <returns></returns>
-        private bool VaildateBearSpread()
+        public bool VaildateBearSpread()
         {
             IsVaildated = false;
 

@@ -128,8 +128,8 @@ namespace CFO.Strategy
             }
 
             //一定是低执行价的期权卖，高执行价的期权买；否则就不是BearSpread
-            if (!(PosHigherK.Quantity > 0 && PosLowerK.Quantity < 0))
-                throw new VaildateException("BearSpread 必须是低执行价的卖出高执行价买入");
+            if (!((PosHigherK.Quantity > 0 && PosLowerK.Quantity < 0) || (PosHigherK.Quantity == 0 && PosLowerK.Quantity == 0)))
+                throw new VaildateException("BearSpread 必须是低执行价的卖出高执行价买入，或者两腿都为0。");
 
             //张数必须相等
             if (Math.Abs(PosHigherK.Quantity) != Math.Abs(PosLowerK.Quantity))

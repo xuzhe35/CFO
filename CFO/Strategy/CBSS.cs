@@ -96,7 +96,7 @@ namespace CFO.Strategy
                 throw new VaildateException("期权腿的执行价不能相同");
 
             //必须是异常权与同到期日的
-            if ((opt1.Right== OptionRight.PUT || opt2.Right== OptionRight.PUT) || (opt1.ExpiryDate != opt2.ExpiryDate))
+            if ((opt1.Right == OptionRight.PUT || opt2.Right == OptionRight.PUT) || (opt1.ExpiryDate != opt2.ExpiryDate))
                 throw new VaildateException("CBSS 两腿期权必须都是看涨期权且同到期日");
 
             if (opt1.StrikePrice > opt2.StrikePrice)
@@ -117,16 +117,16 @@ namespace CFO.Strategy
             }
 
             //高执行价价买低执行价卖 Higher(k) Buy Lower(k) Sell
-            bool HBLS = PosHigherK.Quantity > 0 && PosLowerK.Quantity < 0;
+            bool HBLS = (PosHigherK.Quantity > 0 && PosLowerK.Quantity < 0) || (PosHigherK.Quantity == 0 && PosLowerK.Quantity == 0);
             if (!HBLS)
-                throw new VaildateException("Call BackSpread 必须保证更高执行价是做多，低执行价是做空的");
+                throw new VaildateException("Call BackSpread 必须保证更高执行价是做多，低执行价是做空的，或者两者都为0");
 
             //高执行价看涨期权的张数必须比较低执行价的要高。
             if (!(PosHigherK.Quantity > Math.Abs(PosLowerK.Quantity)))
                 throw new VaildateException("Call BackSpread 必须保证更高执行价的期权张数更多");
 
             //现货的持仓量必然是个负数，先取绝对值
-            bool Safe = Math.Abs(PosSpot.Quantity) <= PosHigherK.Quantity - PosLowerK.Quantity;
+            bool Safe = (Math.Abs(PosSpot.Quantity) <= PosHigherK.Quantity - PosLowerK.Quantity) || (PosHigherK.Quantity == 0 && PosLowerK.Quantity == 0 && PosSpot.Quantity == 0);
 
             if (!Safe)
                 throw new VaildateException("CBSS 必须保障两边的安全");

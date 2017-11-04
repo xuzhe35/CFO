@@ -114,6 +114,10 @@ namespace CFO
                 else if(pos.Asset.GetType() == typeof(Option))
                 {
                     Option opt = (Option)pos.Asset;
+
+                    if (opt.Greeks == null)
+                        return;
+
                     SumDelta += opt.Greeks.Delta * pos.Quantity;
                     SumGamma += opt.Greeks.Gamma * pos.Quantity;
                     SumVega += opt.Greeks.Vega * pos.Quantity;
@@ -121,10 +125,18 @@ namespace CFO
                 }
             }
 
-            ComboGreeks.Delta = SumDelta;
-            ComboGreeks.Gamma = SumGamma;
-            ComboGreeks.Vega = SumVega;
-            ComboGreeks.Theta = SumTheta;
+            //ComboGreeks.Delta = SumDelta;
+            //ComboGreeks.Gamma = SumGamma;
+            //ComboGreeks.Vega = SumVega;
+            //ComboGreeks.Theta = SumTheta;
+
+            ComboGreeks = new Greeks()
+            {
+                Delta = SumDelta,
+                Gamma = SumGamma,
+                Vega = SumVega,
+                Theta = SumTheta
+            };
         }
 
         /// <summary>
